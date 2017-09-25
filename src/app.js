@@ -10,7 +10,7 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Funmis Film Festival</h2>
+          <h2>Funmi's Film Festival</h2>
         </div>
         <div className="Form">
           <p>Add film: </p>
