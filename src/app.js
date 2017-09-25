@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './assets/logo.svg';
 import './css/app.css';
 import Form from './form';
+import List from './list';
 
 class App extends Component {
   render() {
@@ -11,8 +12,12 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Funmis Film Festival</h2>
         </div>
-        <div className="App-intro">
+        <div className="Form">
+          <p>Add film: </p>
           <Form />
+        </div>
+        <div className="List">
+            <List />
         </div>
       </div>
     );

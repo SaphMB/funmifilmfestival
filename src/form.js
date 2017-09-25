@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/app.css';
 
-function Form(props) {
+function Form() {
   return (
     <form>
       <input type="text"></input>
