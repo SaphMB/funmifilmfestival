@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import logo from './assets/logo.svg';
+import React from 'react';
 import './css/app.css';
 
 function Form(props) {
