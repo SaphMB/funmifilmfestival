@@ -5,7 +5,6 @@ function Film(Props) {
   return (
     <tr>
       <td>{Props.name}</td>
-      <td>{Props.user}</td>
     </tr>
   );
 }

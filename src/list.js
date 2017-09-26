@@ -9,7 +9,6 @@ class List extends Component {
         <thead>
           <tr>
             <th>Film</th>
-            <th>ID</th>
           </tr>
         </thead>
         <tbody>
