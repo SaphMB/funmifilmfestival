@@ -1,10 +1,28 @@
+
 import React, { Component } from 'react';
+import fire from './firebase';
 import logo from './assets/logo.svg';
-import './css/app.css';
-import Form from './form';
+// import Form from './form';
 import List from './list';
+import './css/app.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { films: [] };
+  }
+  componentWillMount(){
+    let filmsRef = fire.database().ref('films').orderByKey().limitToLast(100);
+    filmsRef.on('child_added', snapshot => {
+      let film = { text: snapshot.val(), id: snapshot.key };
+      this.setState({ films: [film].concat(this.state.films) });
+    })
+  }
+  addfilm(e){
+    e.preventDefault();
+    fire.database().ref('films').push( this.inputEl.value );
+    this.inputEl.value = '';
+  }
   render() {
     return (
       <div className="App">
@@ -14,10 +32,15 @@ class App extends Component {
         </div>
         <div className="Form">
           <p>Add film: </p>
-          <Form />
+          <form onSubmit={this.addfilm.bind(this)}>
+            <input type="text" ref={ el => this.inputEl = el }/>
+            <input type="submit"/>
+          </form>
         </div>
         <div className="List">
-            <List />
+          <ul>
+            <List this={this} />
+          </ul>
         </div>
       </div>
     );
