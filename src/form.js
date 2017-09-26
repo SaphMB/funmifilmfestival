@@ -4,10 +4,9 @@ import fire from './firebase';
 
 class Form extends Component {
   addMessage(e){
-    e.preventDefault(); // <- prevent form submit from reloading the page
-    /* Send the message to Firebase */
+    e.preventDefault();
     fire.database().ref('films').push( this.inputEl.value );
-    this.inputEl.value = ''; // <- clear the input
+    this.inputEl.value = '';
   }
   render() {
     return (

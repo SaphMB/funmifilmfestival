@@ -1,8 +1,7 @@
-
 import React, { Component } from 'react';
 import fire from './firebase';
 import logo from './assets/logo.svg';
-// import Form from './form';
+import Form from './form';
 import List from './list';
 import './css/app.css';
 
@@ -18,11 +17,6 @@ class App extends Component {
       this.setState({ films: [film].concat(this.state.films) });
     })
   }
-  addfilm(e){
-    e.preventDefault();
-    fire.database().ref('films').push( this.inputEl.value );
-    this.inputEl.value = '';
-  }
   render() {
     return (
       <div className="App">
@@ -32,14 +26,11 @@ class App extends Component {
         </div>
         <div className="Form">
           <p>Add film: </p>
-          <form onSubmit={this.addfilm.bind(this)}>
-            <input type="text" ref={ el => this.inputEl = el }/>
-            <input type="submit"/>
-          </form>
+          <Form />
         </div>
         <div className="List">
           <ul>
-            <List this={this} />
+            <List films={this.state.films}/>
           </ul>
         </div>
       </div>
