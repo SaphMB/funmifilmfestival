@@ -1,37 +1,19 @@
 import React from 'react';
 import './css/app.css';
+import Film from './film';
 
 function List() {
   return (
     <table>
-      <tr>
-        <th>Film</th>
-        <th>User</th>
-      </tr>
-      <tr>
-        <td>Film</td>
-        <td>User</td>
-      </tr>
-      <tr>
-        <td>Film</td>
-        <td>User</td>
-      </tr>
-      <tr>
-        <td>Film</td>
-        <td>User</td>
-      </tr>
-      <tr>
-        <td>Film</td>
-        <td>User</td>
-      </tr>
-      <tr>
-        <td>Film</td>
-        <td>User</td>
-      </tr>
-      <tr>
-        <td>Film</td>
-        <td>User</td>
-      </tr>
+      <thead>
+        <tr>
+          <th>Film</th>
+          <th>User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <Film name="Batman" user="me"/>
+      </tbody>
     </table>
   );
 }

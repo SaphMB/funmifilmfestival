@@ -4,7 +4,7 @@ import './css/app.css';
 function Form() {
   return (
     <form>
-      <input type="text"></input>
+      <input className="textinput" type="text"></input>
     </form>
   );
 }
