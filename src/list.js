@@ -9,10 +9,11 @@ class List extends Component {
         <thead>
           <tr>
             <th>Film</th>
+            <th>Added by</th>
           </tr>
         </thead>
         <tbody>
-            { this.props.films.map( film => <Film name={film.text} user={film.id} />) }
+            { this.props.films.map( film => <Film name={film.text.name} user_name={film.text.user_name} key={film.id} id={film.id}/>) }
         </tbody>
       </table>
     );

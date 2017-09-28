@@ -17,5 +17,5 @@ it('renders using given props', () => {
   const tbody = document.createElement('tbody');
   ReactDOM.render(<table />, div);
   ReactDOM.render(<tbody />, table);
-  ReactDOM.render(<Film name="Filmname"/>, tbody);
+  ReactDOM.render(<Film name="name" user_name="username" key="key" id="id"/>, tbody);
 });

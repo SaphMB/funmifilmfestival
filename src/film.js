@@ -5,6 +5,7 @@ function Film(Props) {
   return (
     <tr>
       <td>{Props.name}</td>
+      <td>{Props.user_name}</td>
     </tr>
   );
 }

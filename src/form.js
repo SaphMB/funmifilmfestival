@@ -5,13 +5,20 @@ import fire from './firebase';
 class Form extends Component {
   addMessage(e){
     e.preventDefault();
-    fire.database().ref('films').push( this.inputEl.value );
-    this.inputEl.value = '';
+    var input = this.inputEl.value;
+    var ref = fire.database().ref("films");
+    var newfilmref = ref.push();
+    newfilmref.set({
+      'user_name': this.props.user.displayName,
+      'name': input
+    });
+    input = '';
   }
   render() {
     return (
       <form onSubmit={this.addMessage.bind(this)}>
         <input className="textinput" type="text" ref={ el => this.inputEl = el }/>
+        <br />
         <input type="submit"/>
       </form>
     );
