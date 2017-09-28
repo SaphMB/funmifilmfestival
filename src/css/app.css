@@ -1,11 +1,71 @@
-.list table {
+.List {
+  padding: 30px;
+}
+
+.user-management {
+  position: absolute;
+}
+
+input, select {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+Form {
+  background-color: #222;
+  padding: 20px;
+  color: white;
+}
+
+button {
+    background-color: rgba(237, 179, 68, 0.30);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 15px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: rgba(237, 179, 68, 0.70); /* Green */
+    color: white;
+}
+
+table {
+  background-color: #ffffff;
   border-collapse: collapse;
   width: 100%;
   text-align: center;
+  border: 1px solid black;
+}
+
+th, td {
+    text-align: left;
+    padding: 5px;
+}
+
+tr:nth-child(even){background-color: rgba(237, 179, 68, 0.30)}
+tr:not(.nohover):hover {background-color: rgba(237, 179, 68, 0.55)}
+
+th {
+    background-color: #000000;
+    color: white;
 }
 
 .App {
   text-align: center;
+  background-color: #222;
 }
 
 .App-logo {
@@ -15,7 +75,7 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 170px;
   padding: 20px;
   color: white;
 }
@@ -30,9 +90,6 @@
 }
 
 .user-profile {
-  position: fixed;
-  bottom: 80px;
-  right: 10px;
   width: 150px;
   height: 100px;
 }

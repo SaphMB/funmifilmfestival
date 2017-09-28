@@ -17,7 +17,7 @@ class Form extends Component {
   render() {
     return (
       <form onSubmit={this.addMessage.bind(this)}>
-        <input className="textinput" type="text" ref={ el => this.inputEl = el }/>
+        <input className="textinput" placeholder="Add film" type="text" ref={ el => this.inputEl = el }/>
         <br />
         <input type="submit"/>
       </form>

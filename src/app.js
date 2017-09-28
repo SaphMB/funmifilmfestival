@@ -32,33 +32,33 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
+        <div className="header">
           {this.state.user ?
+          <div className="user-management">
             <button onClick={this.logout}>Log Out</button>
-            :
-            <button onClick={this.login}>Log In</button>
-          }
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Funmi's Film Festival</h2>
-        </div>
-        {this.state.user ?
-          <div>
             <div className='user-profile'>
-              <p>hi {this.state.user.displayName}</p>
               <img alt='' src={this.state.user.photoURL} />
             </div>
+          </div>
+          :
+          <div className="user-management">
+            <button onClick={this.login}>Log In</button>
+          </div>
+          }
+          <div className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h2>Funmi's Film Festival</h2>
+          </div>
+        </div>
+        {this.state.user ?
             <div className="Form">
-              <p>Add film: </p>
               <Form user={this.state.user}/>
             </div>
-          </div>
           :
           <div />
         }
         <div className="List">
-          <ul>
-            <List films={this.state.films}/>
-          </ul>
+          <List films={this.state.films}/>
         </div>
       </div>
     );
