@@ -22,7 +22,7 @@ Form {
   color: white;
 }
 
-button {
+.button {
     background-color: rgba(237, 179, 68, 0.30);
     border: none;
     color: white;
@@ -37,8 +37,24 @@ button {
     transition-duration: 0.4s;
 }
 
-button:hover {
+.button:hover {
     background-color: rgba(237, 179, 68, 0.70); /* Green */
+    color: white;
+}
+
+.delete {
+    background-color: rgba(235, 197, 124, 1);
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.delete:hover {
+    background-color: rgba(237, 179, 68, 1); /* Green */
     color: white;
 }
 
@@ -47,13 +63,15 @@ table {
   border-collapse: collapse;
   width: 100%;
   text-align: center;
-  border: 1px solid black;
 }
 
 th, td {
     text-align: left;
     padding: 5px;
 }
+
+td:nth-child(3){background-color: #222; width:15px}
+th:nth-child(3){background-color: #222}
 
 tr:nth-child(even){background-color: rgba(237, 179, 68, 0.30)}
 tr:not(.nohover):hover {background-color: rgba(237, 179, 68, 0.55)}

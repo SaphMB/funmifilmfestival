@@ -35,7 +35,7 @@ class App extends Component {
         <div className="header">
           {this.state.user ?
           <div className="user-management">
-            <button onClick={this.logout}>Log Out</button>
+            <button className="button" onClick={this.logout}>Log Out</button>
             <div className='user-profile'>
               <img alt='' src={this.state.user.photoURL} />
             </div>
@@ -58,7 +58,7 @@ class App extends Component {
           <div />
         }
         <div className="List">
-          <List films={this.state.films}/>
+          <List films={this.state.films} user={this.state.user} app={this}/>
         </div>
       </div>
     );
