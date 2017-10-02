@@ -42,7 +42,7 @@ class App extends Component {
           </div>
           :
           <div className="user-management">
-            <button onClick={this.login}>Log In</button>
+            <button className="button" onClick={this.login}>Log In</button>
           </div>
           }
           <div className="App-header">
@@ -51,20 +51,22 @@ class App extends Component {
           </div>
         </div>
         {this.state.user ?
+          <div>
             <div className="Form">
               <Form user={this.state.user}/>
             </div>
+            <div className="List">
+              <List films={this.state.films} user={this.state.user} app={this}/>
+            </div>
+          </div>
           :
-          <div />
+          <div className="box">
+            <h4>Please Login</h4>
+          </div>
         }
-        <div className="List">
-          <List films={this.state.films} user={this.state.user} app={this}/>
-        </div>
+
       </div>
     );
-  }
-  handleChange(e) {
-    /* ... */
   }
   logout() {
     auth.signOut()

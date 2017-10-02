@@ -12,7 +12,7 @@ class Form extends Component {
       'user_name': this.props.user.displayName,
       'name': input
     });
-    input = '';
+    this.inputEl.value = '';
   }
   render() {
     return (

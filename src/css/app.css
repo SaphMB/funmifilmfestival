@@ -84,6 +84,12 @@ th {
 .App {
   text-align: center;
   background-color: #222;
+  height: 100vh;
+  margin: 0
+}
+
+.box {
+  color: white;
 }
 
 .App-logo {
