@@ -6,12 +6,15 @@ class Form extends Component {
   addMessage(e){
     e.preventDefault();
     var input = this.inputEl.value;
-    var ref = fire.database().ref("films");
-    var newfilmref = ref.push();
-    newfilmref.set({
-      'user_name': this.props.user.displayName,
-      'name': input
-    });
+    if(this.checkDuplicate(input)) {
+      var ref = fire.database().ref("films");
+      var newfilmref = ref.push();
+      newfilmref.set({
+        'name': input,
+        'user_name': this.props.state.user.displayName,
+        'votes': 0
+      });
+    }
     this.inputEl.value = '';
   }
   render() {
@@ -22,6 +25,13 @@ class Form extends Component {
         <input type="submit"/>
       </form>
     );
+  }
+  checkDuplicate(input) {
+    var result = true;
+    this.props.state.films.forEach(function(film){
+      if(film.text.name.toLowerCase() === input.toLowerCase()) { result = false }
+    });
+    return result;
   }
 }
 

@@ -70,8 +70,8 @@ th, td {
     padding: 5px;
 }
 
-td:nth-child(3){background-color: #222; width:15px}
-th:nth-child(3){background-color: #222}
+td:nth-child(5){background-color: #222; width:15px}
+th:nth-child(5){background-color: #222}
 
 tr:nth-child(even){background-color: rgba(237, 179, 68, 0.30)}
 tr:not(.nohover):hover {background-color: rgba(237, 179, 68, 0.55)}
@@ -84,7 +84,8 @@ th {
 .App {
   text-align: center;
   background-color: #222;
-  height: 100vh;
+  min-height: 100vh;
+  max-height: 100%;
   margin: 0
 }
 

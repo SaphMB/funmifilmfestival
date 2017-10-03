@@ -7,31 +7,33 @@ function Film(Props) {
     <tr>
       <td>{Props.film.text.name}</td>
       <td>{Props.film.text.user_name}</td>
+      <td>{Props.film.text.votes}</td>
+      { voteButton(Props) }
       { deleteButton(Props) }
     </tr>
   );
 }
 
-function removeItem(id, app) {
+function voteButton(Props) {
+  return <td><button className="vote" onClick={() => vote(Props.film.id, Props)}>Vote</button></td>
+}
+
+function vote(id, Props) {
+  var film = firebase.database().ref('films').child(id);
+  film.set({
+    name: Props.film.text.name,
+    user_name: Props.film.text.user_name,
+    votes: Props.film.text.votes + 1
+  });
+}
+
+function removeItem(id) {
   firebase.database().ref('films').child(id).remove();
-  var films = app.state.films
-  for(var i = 0; i < films.length; i++) {
-    if(films[i].id === id) {
-      films.splice(i, 1);
-      break;
-    }
-  }
-  app.forceUpdate();
 };
 
 function deleteButton(Props) {
-  if(Props.user) {
-    if(Props.film.text.user_name === Props.user.displayName) {
-      return <td><button className="delete" onClick={() => removeItem(Props.film.id, Props.app)}>Delete</button></td>
-    }
-    else {
-      return <td></td>;
-    }
+  if(Props.film.text.user_name === Props.user.displayName) {
+    return <td><button className="delete" onClick={() => removeItem(Props.film.id)}>Delete</button></td>
   }
   else {
     return <td></td>;

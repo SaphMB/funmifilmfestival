@@ -10,11 +10,13 @@ class List extends Component {
           <tr>
             <th>Film</th>
             <th>Added by</th>
+            <th>Votes</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-            { this.props.films.map( film => <Film film={film} key={film.id} user={this.props.user} app={this.props.app}/>) }
+            { this.props.films.map( film => <Film film={film} key={film.id} user={this.props.user}/>) }
         </tbody>
       </table>
     );

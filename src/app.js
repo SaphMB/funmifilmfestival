@@ -19,10 +19,24 @@ class App extends Component {
     let filmsRef = fire.database().ref('films').orderByKey().limitToLast(100);
     filmsRef.on('child_added', snapshot => {
       let film = { text: snapshot.val(), id: snapshot.key };
-      this.setState({ films: [film].concat(this.state.films) });
+      var films = [film].concat(this.state.films)
+      this.sortFilms(films);
+      this.setState({ films: films });
     })
-  }
-  componentDidMount() {
+    filmsRef.on('child_removed', snapshot => {
+      var films = this.state.films
+      this.removeFilm(films, snapshot.key)
+      this.sortFilms(films);
+      this.setState({ films: films });
+    })
+    filmsRef.on('child_changed', snapshot => {
+      let film = { text: snapshot.val(), id: snapshot.key };
+      var films = this.state.films
+      this.removeFilm(films, snapshot.key)
+      films = [film].concat(this.state.films)
+      this.sortFilms(films);
+      this.setState({ films: films });
+    })
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
@@ -53,7 +67,7 @@ class App extends Component {
         {this.state.user ?
           <div>
             <div className="Form">
-              <Form user={this.state.user}/>
+              <Form state={this.state}/>
             </div>
             <div className="List">
               <List films={this.state.films} user={this.state.user} app={this}/>
@@ -84,6 +98,19 @@ class App extends Component {
           user
         });
       });
+  }
+  sortFilms(films) {
+    films.sort(function(a,b) {
+      return b.text.votes - a.text.votes;
+    });
+  }
+  removeFilm(films, id) {
+    for(var i = 0; i < films.length; i++) {
+      if(films[i].id === id) {
+        films.splice(i, 1);
+        break;
+      }
+    }
   }
 }
 
