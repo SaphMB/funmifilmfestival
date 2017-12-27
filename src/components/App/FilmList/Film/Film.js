@@ -1,5 +1,16 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+const LikeButton = styled.button`
+  align-self: flex-end;
+`
+
+const FilmContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
 
 class Film extends PureComponent {
   static propTypes = {
@@ -14,17 +25,16 @@ class Film extends PureComponent {
   };
 
   render() {
-    console.log(this.props.id)
     const { score, title } = this.props;
     return (
-      <div>
+      <FilmContainer>
         {title} | Score: {typeof score !== 'undefined' ? score : 'N/A'}
-        <button onClick={this.onLikeClick}>
+        <LikeButton onClick={this.onLikeClick}>
           <span role="img" aria-label="thumbs up">
             👍
           </span>
-        </button>
-      </div>
+        </LikeButton>
+      </FilmContainer>
     )
   }
 }
