@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import map from 'lodash/map'
+import orderBy from 'lodash/orderBy'
 
 import fire from '../../../firebase.js'
 import Film from './Film/Film'
@@ -38,26 +39,30 @@ class FilmList extends PureComponent {
     thisFilm.set({
       name: film.name,
       votes: film.votes + 1,
-      user_name: film.user_name
+      user_name: film.user_name,
+      uid: film.uid
     });
   };
 
   render() {
     const { films } = this.state;
+    const keyedFilms = map(films, (film, key) => { return { ...film, key } });
+    const sortedFilms = orderBy(keyedFilms, ['votes'], ['desc']);
+
     return (
-      !this.state.loading ?
-        <Container>
-          {map(films, (film, id) =>
-            (<Film
-              film={film}
-              id={id}
-              key={id}
-              onUpvote={this.onUpvote}
-            />)
-          )}
-      </Container> : null
-    )
-  }
+        !this.state.loading ?
+          <Container>
+            {map(sortedFilms, film =>
+              (<Film
+                film={film}
+                id={film.key}
+                key={film.key}
+                onUpvote={this.onUpvote}
+              />)
+            )}
+        </Container> : null
+      )
+    }
 }
 
 export default FilmList
