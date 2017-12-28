@@ -1,4 +1,9 @@
 import React, { PureComponent } from 'react'
+import styled from 'styled-components'
+
+const StyledInput = styled.input`
+  
+`;
 
 class SearchBar extends PureComponent {
   state = {
@@ -13,8 +18,8 @@ class SearchBar extends PureComponent {
     const { value } = this.state;
 
     return (
-      <input
-        placeholder={`Search for film`}
+      <StyledInput id={'searchBar'}
+        placeholder={`Add a film`}
         value={value}
         onChange={this.onChange}
       />

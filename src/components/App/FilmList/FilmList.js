@@ -12,7 +12,6 @@ const Container = styled.ul`
   border-radius: 4px;
   padding: 8px;
   color: white;
-  width: 50%;
 `;
 
 let filmsRef = fire.database().ref('films');
@@ -20,19 +19,23 @@ let filmsRef = fire.database().ref('films');
 
 class FilmList extends PureComponent {
   state = {
-    films: []
+    films: [],
+    loading: true,
   };
 
   componentDidMount() {
     filmsRef.on('value', snapshot => {
-      this.setState({ films: snapshot.val() })
+      this.setState({
+        films: snapshot.val(),
+        loading: false,
+      })
     });
   }
 
   onUpvote = (film, id) => {
     const thisFilm = filmsRef.child(id);
 
-    this.props.user && thisFilm.set({
+    thisFilm.set({
       name: film.name,
       votes: film.votes + 1,
       user_name: film.user_name
@@ -42,16 +45,17 @@ class FilmList extends PureComponent {
   render() {
     const { films } = this.state;
     return (
-      <Container>
-        {map(films, (film, id) => (
-          <Film
-            film={film}
-            id={id}
-            key={id}
-            onUpvote={this.onUpvote}
-          />
-        ))}
-      </Container>
+      !this.state.loading ?
+        <Container>
+          {map(films, (film, id) =>
+            (<Film
+              film={film}
+              id={id}
+              key={id}
+              onUpvote={this.onUpvote}
+            />)
+          )}
+      </Container> : null
     )
   }
 }

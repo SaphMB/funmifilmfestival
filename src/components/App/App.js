@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { auth, provider } from '../../firebase.js';
 
 import Header from './Header/Header'
-import SearchBar from './SearchBar/SearchBar'
+import MagicBar from './MagicBar/MagicBar'
 import FilmList from './FilmList/FilmList'
 import UserManagement from './UserManagement/UserManagement';
 
@@ -46,13 +46,12 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.user)
     return (
       <Container>
         <UserManagement user={this.state.user} login={this.login} logout={this.logout} />
         <Header />
-        <SearchBar />
-        <FilmList user={this.state.user} />
+        <MagicBar user={this.state.user} />
+        {this.state.user && <FilmList />}
       </Container>
     )
   }
