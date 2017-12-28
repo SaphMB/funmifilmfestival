@@ -29,27 +29,23 @@ class FilmList extends PureComponent {
     });
   }
 
-  updateFilmScore = (state, id, newScore) => ({
-    ...state,
-    films: map(state.films,
-      (film, filmId) => (filmId !== id ? film : { ...film, votes: newScore })
-    )
-    // this turns it into an Array, stripping it's ID.
-  });
+  onUpvote = (film, id) => {
+    const thisFilm = filmsRef.child(id);
 
-  onUpvote = (id, newScore) => {
-    this.setState(state => this.updateFilmScore(state, id, newScore))
+    this.props.user && thisFilm.set({
+      name: film.name,
+      votes: film.votes + 1,
+      user_name: film.user_name
+    });
   };
 
   render() {
-    console.log(this.state)
     const { films } = this.state;
     return (
       <Container>
         {map(films, (film, id) => (
           <Film
-            title={film.name}
-            score={film.votes}
+            film={film}
             id={id}
             key={id}
             onUpvote={this.onUpvote}
