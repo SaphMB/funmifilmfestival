@@ -17,7 +17,6 @@ const Container = styled.ul`
 
 let filmsRef = fire.database().ref('films');
 
-
 class FilmList extends PureComponent {
   state = {
     films: [],

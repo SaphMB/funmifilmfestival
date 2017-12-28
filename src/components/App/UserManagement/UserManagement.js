@@ -8,6 +8,8 @@ const UserContainer = styled.div`
   left: 10px;
   top: 10px;
   width: 150px;
+  font-size: 10px;
+  color: white;
 `;
 
 const UserAvatar = styled.img`
