@@ -14,35 +14,27 @@ const Container = styled.section`
 const filmsRef = fire.database().ref("films");
 
 class MagicBar extends PureComponent {
-  checkForDuplicates = filmName => {
-    filmsRef.once("value",snapshot => {
-      const userData = snapshot.val();
-      console.log(userData)
-      if (userData){
-        console.log("exists!");
-      }
-  });
-};
-  
-  // checkDuplicate(input) {
-  //   var result = true;
-  //   this.props.state.films.forEach(function(film){
-  //     if(film.text.name.toLowerCase() === input.toLowerCase()) { result = false }
-  //   });
-  //   return result;
-  // }
+  isDuplicate = filmName => {
+    return filmsRef.once("value")
+      .then(snapshot => {
+        const films = Object.values(snapshot.val());
+        return !(films.filter(film => film.name.toLowerCase() === filmName.toLowerCase()).length === 0)
+      })
+  };
 
   addFilm = e => {
     const searchBarValue = document.getElementById('searchBar').value;
 
     e.preventDefault();
 
-    this.checkForDuplicates(searchBarValue) && filmsRef.push({
-      'name': searchBarValue,
-      'uid': this.props.user.uid,
-      'user_name': this.props.user.displayName,
-      'votes': 0
-    });
+    this.isDuplicate(searchBarValue).then(result => {
+      result ? alert('Film already exists!') : filmsRef.push({
+        'name': searchBarValue,
+        'uid': this.props.user.uid,
+        'user_name': this.props.user.displayName,
+        'votes': 0
+      });
+    })
   };
 
   render() {

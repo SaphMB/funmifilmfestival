@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import map from 'lodash/map'
 import orderBy from 'lodash/orderBy'
 
+import ripple from '../../../assets/Ripple.svg'
 import fire from '../../../firebase.js'
 import Film from './Film/Film'
 
@@ -13,6 +14,13 @@ const Container = styled.ul`
   border-radius: 4px;
   padding: 8px;
   color: white;
+`;
+
+const LoadingSpinner = styled.img.attrs({
+  src: ripple,
+  alt: 'spinner'
+})`
+  padding-top: 20px;
 `;
 
 let filmsRef = fire.database().ref('films');
@@ -59,7 +67,7 @@ class FilmList extends PureComponent {
                 onUpvote={this.onUpvote}
               />)
             )}
-        </Container> : null
+        </Container> : <LoadingSpinner/>
       )
     }
 }
