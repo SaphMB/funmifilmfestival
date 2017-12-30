@@ -23,7 +23,7 @@ class MagicBar extends PureComponent {
   };
 
   addFilm = e => {
-    const searchBarValue = document.getElementById('searchBar').value;
+    const searchBarValue = document.getElementById('searchBar').value.trim();
 
     e.preventDefault();
 
