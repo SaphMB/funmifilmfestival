@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
+import React, { Component } from 'react';
+import styled from 'styled-components';
 import { auth, provider } from '../../firebase.js';
 
-import Header from './Header/Header'
-import MagicBar from './MagicBar/MagicBar'
-import FilmList from './FilmList/FilmList'
+import Header from './Header/Header';
+import MagicBar from './MagicBar/MagicBar';
+import FilmList from './FilmList/FilmList';
 import UserManagement from './UserManagement/UserManagement';
 
 const Container = styled.main`
@@ -12,14 +12,14 @@ const Container = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding:20px;
+  padding: 20px;
 `;
 
 class App extends Component {
   state = { user: null };
 
   componentWillMount() {
-    auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged(user => {
       if (user) {
         this.setState({ user });
       }
@@ -27,34 +27,36 @@ class App extends Component {
   }
 
   logout = () => {
-    auth.signOut()
-      .then(() => {
-        this.setState({
-          user: null
-        });
+    auth.signOut().then(() => {
+      this.setState({
+        user: null,
       });
+    });
   };
 
   login = () => {
-    auth.signInWithPopup(provider)
-      .then((result) => {
-        const user = result.user;
-        this.setState({
-          user
-        });
+    auth.signInWithPopup(provider).then(result => {
+      const user = result.user;
+      this.setState({
+        user,
       });
+    });
   };
 
   render() {
     return (
       <Container>
-        <UserManagement user={this.state.user} login={this.login} logout={this.logout} />
+        <UserManagement
+          user={this.state.user}
+          login={this.login}
+          logout={this.logout}
+        />
         <Header />
         <MagicBar user={this.state.user} />
         {this.state.user && <FilmList />}
       </Container>
-    )
+    );
   }
 }
 
-export default App
+export default App;

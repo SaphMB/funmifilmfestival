@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
+import React, { Component } from 'react';
+import styled from 'styled-components';
 
 const UserContainer = styled.div`
   display: flex;
@@ -14,22 +14,25 @@ const UserContainer = styled.div`
 
 const UserAvatar = styled.img`
   width: 100%;
-`
+`;
 
 class UserManagement extends Component {
   render() {
-    return (
-      this.props.user ?
+    return this.props.user ? (
       <UserContainer>
-        <button className="button" onClick={this.props.logout}>Log Out</button>
+        <button className="button" onClick={this.props.logout}>
+          Log Out
+        </button>
         <UserAvatar src={this.props.user.photoURL} />
       </UserContainer>
-      :
+    ) : (
       <UserContainer>
-        <button className="button" onClick={this.props.login}>Log In</button>
+        <button className="button" onClick={this.props.login}>
+          Log In
+        </button>
       </UserContainer>
-    )
+    );
   }
 }
 
-export default UserManagement
+export default UserManagement;

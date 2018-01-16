@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react'
-import styled from 'styled-components'
-import map from 'lodash/map'
-import orderBy from 'lodash/orderBy'
+import React, { PureComponent } from 'react';
+import styled from 'styled-components';
+import map from 'lodash/map';
+import orderBy from 'lodash/orderBy';
 
-import ripple from '../../../assets/Ripple.svg'
-import fire from '../../../firebase.js'
-import Film from './Film/Film'
+import ripple from '../../../assets/Ripple.svg';
+import fire from '../../../firebase.js';
+import Film from './Film/Film';
 
 const Container = styled.ul`
   display: flex;
@@ -18,7 +18,7 @@ const Container = styled.ul`
 
 const LoadingSpinner = styled.img.attrs({
   src: ripple,
-  alt: 'spinner'
+  alt: 'spinner',
 })`
   padding-top: 20px;
 `;
@@ -36,7 +36,7 @@ class FilmList extends PureComponent {
       this.setState({
         films: snapshot.val(),
         loading: false,
-      })
+      });
     });
   }
 
@@ -47,29 +47,32 @@ class FilmList extends PureComponent {
       name: film.name,
       votes: film.votes + 1,
       user_name: film.user_name,
-      uid: film.uid
+      uid: film.uid,
     });
   };
 
   render() {
     const { films } = this.state;
-    const keyedFilms = map(films, (film, key) => { return { ...film, key } });
+    const keyedFilms = map(films, (film, key) => {
+      return { ...film, key };
+    });
     const sortedFilms = orderBy(keyedFilms, ['votes'], ['desc']);
 
-    return (
-        !this.state.loading ?
-          <Container>
-            {map(sortedFilms, film =>
-              (<Film
-                film={film}
-                id={film.key}
-                key={film.key}
-                onUpvote={this.onUpvote}
-              />)
-            )}
-        </Container> : <LoadingSpinner/>
-      )
-    }
+    return !this.state.loading ? (
+      <Container>
+        {map(sortedFilms, film => (
+          <Film
+            film={film}
+            id={film.key}
+            key={film.key}
+            onUpvote={this.onUpvote}
+          />
+        ))}
+      </Container>
+    ) : (
+      <LoadingSpinner />
+    );
+  }
 }
 
-export default FilmList
+export default FilmList;

@@ -1,12 +1,16 @@
-import React, { PureComponent } from 'react'
-import styled from 'styled-components'
+import React, { PureComponent } from 'react';
+import styled from 'styled-components';
 
-import logo from './logo.svg'
+import logo from './logo.svg';
 
-const Logo = styled.img.attrs({src: logo})`
+const Logo = styled.img.attrs({ src: logo })`
   @keyframes App-logo-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   animation: App-logo-spin infinite 20s linear;
@@ -33,8 +37,8 @@ class Header extends PureComponent {
         <Logo />
         <Title>Funmi's Film Festival</Title>
       </Container>
-    )
+    );
   }
 }
 
-export default Header
+export default Header;

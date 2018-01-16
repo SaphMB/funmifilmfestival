@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Film from '../film';
+import Film from '../components/App/FilmList/Film/Film';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -17,5 +17,8 @@ it('renders using given props', () => {
   const tbody = document.createElement('tbody');
   ReactDOM.render(<table />, div);
   ReactDOM.render(<tbody />, table);
-  ReactDOM.render(<Film name="name" user_name="username" key="key" id="id"/>, tbody);
+  ReactDOM.render(
+    <Film name="name" user_name="username" key="key" id="id" />,
+    tbody
+  );
 });
