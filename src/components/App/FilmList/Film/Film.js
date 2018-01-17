@@ -14,6 +14,8 @@ class Film extends PureComponent {
   static propTypes = {
     film: PropTypes.object,
     id: PropTypes.string.isRequired,
+    onUpvote: PropTypes.func.isRequired,
+    onFilmSelect: PropTypes.func.isRequired,
   };
 
   onLikeClick = () => {
@@ -21,11 +23,16 @@ class Film extends PureComponent {
     onUpvote(film, id);
   };
 
+  onFilmClick = () => {
+    const { onFilmSelect, film } = this.props;
+    onFilmSelect(film);
+  };
+
   render() {
     const { film } = this.props;
     return (
       <FilmContainer>
-        <TitleContainer>
+        <TitleContainer onClick={this.onFilmClick}>
           <FilmName>{film.name}</FilmName>
           <UserName>submitted by: {film.user_name}</UserName>
         </TitleContainer>

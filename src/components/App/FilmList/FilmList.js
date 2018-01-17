@@ -6,14 +6,19 @@ import orderBy from 'lodash/orderBy';
 import ripple from '../../../assets/Ripple.svg';
 import fire from '../../../firebase.js';
 import Film from './Film/Film';
+import { FilmInfoPanel } from './FilmInfoPanel';
 
-const Container = styled.ul`
+export const FilmListContainer = styled.ul`
   display: flex;
   flex-direction: column;
   border: 1px solid #ffffff;
   border-radius: 4px;
   padding: 8px;
   color: white;
+`;
+
+const List = styled.div`
+  position: relative;
 `;
 
 const LoadingSpinner = styled.img.attrs({
@@ -29,14 +34,34 @@ class FilmList extends PureComponent {
   state = {
     films: [],
     loading: true,
+    selectedFilm: null,
   };
 
   componentDidMount() {
+    document.body.addEventListener('mousedown', this.onPageClick);
+
     filmsRef.on('value', snapshot => {
       this.setState({
         films: snapshot.val(),
         loading: false,
       });
+    });
+  }
+
+  componentWillUnmount() {
+    document.body.removeEventListener('mousedown', this.onPageClick);
+  }
+
+  onFilmSelect = film => {
+    console.log('film click!');
+    this.setState({
+      selectedFilm: film,
+    });
+  };
+
+  onPageClick = () => {
+    this.setState({
+      selectedFilm: null,
     });
   }
 
@@ -52,6 +77,8 @@ class FilmList extends PureComponent {
   };
 
   render() {
+
+
     const { films } = this.state;
     const keyedFilms = map(films, (film, key) => {
       return { ...film, key };
@@ -59,16 +86,22 @@ class FilmList extends PureComponent {
     const sortedFilms = orderBy(keyedFilms, ['votes'], ['desc']);
 
     return !this.state.loading ? (
-      <Container>
-        {map(sortedFilms, film => (
-          <Film
-            film={film}
-            id={film.key}
-            key={film.key}
-            onUpvote={this.onUpvote}
-          />
-        ))}
-      </Container>
+      <List>
+        <FilmListContainer>
+          {map(sortedFilms, film => (
+            <Film
+              film={film}
+              id={film.key}
+              key={film.key}
+              onUpvote={this.onUpvote}
+              onFilmSelect={this.onFilmSelect}
+            />
+          ))}
+        </FilmListContainer>
+        {this.state.selectedFilm && (
+          <FilmInfoPanel film={this.state.selectedFilm} />
+        )}
+      </List>
     ) : (
       <LoadingSpinner />
     );
