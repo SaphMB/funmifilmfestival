@@ -19,7 +19,12 @@ export const FilmContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 5px;
+  margin-top: 5px;
+  border-bottom: 1px solid grey;
+
+  &:first-child {
+    margin-top: 0px;
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -37,12 +42,14 @@ export const ScoreContainer = styled.div`
 
 export const FilmName = styled.span`
   font-size: 16px;
+  margin-bottom: 1px;
 `;
 
 export const UserName = styled.span`
   font-size: 11px;
-  margin-left: 4px;
   opacity: 0.5;
+  margin-left: 4px;
+  margin-bottom: 1px;
 `;
 
 export const FilmScore = styled.span`
