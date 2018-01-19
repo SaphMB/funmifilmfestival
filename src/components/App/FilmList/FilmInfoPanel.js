@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import rolling from '../../../assets/Rolling.svg';
+
 import fetch from 'node-fetch';
 
 const FilmInfoContainer = styled.div`
@@ -21,13 +23,18 @@ const FilmInfoContainer = styled.div`
 const FilmPoster = styled.img`
   height: auto;
   width: 130px;
-  margin: 10px
+  margin: 10px;
 `;
 
 const FilmPlot = styled.div`
   font-size: 12px;
   font-weight: normal;
 `;
+
+const LoadingSpinner = styled.img.attrs({
+  src: rolling,
+  alt: 'spinner',
+})``;
 
 export class FilmInfoPanel extends PureComponent {
   static propTypes = {
@@ -41,7 +48,7 @@ export class FilmInfoPanel extends PureComponent {
   async componentWillMount() {
     if (!this.state.film) {
       const response = await fetch(
-        `http://www.omdbapi.com/?apikey=fd0df1cd&t=${this.props.film.name}`
+        `https://www.omdbapi.com/?apikey=fd0df1cd&t=${this.props.film.name}`
       );
       const json = await response.json();
       this.setState({
@@ -57,8 +64,14 @@ export class FilmInfoPanel extends PureComponent {
     return (
       <FilmInfoContainer>
         {film.name}
-        {!this.state.loading && <FilmPoster src={this.state.film.Poster} />}
-        {!this.state.loading && <FilmPlot>{this.state.film.Plot}</FilmPlot>}
+        {this.state.loading ? (
+          <LoadingSpinner/>
+        ) : (
+          <div>
+            <FilmPoster src={this.state.film.Poster} />
+            <FilmPlot>{this.state.film.Plot}</FilmPlot>
+          </div>
+        )}
       </FilmInfoContainer>
     );
   }
