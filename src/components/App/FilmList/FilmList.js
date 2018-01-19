@@ -53,7 +53,6 @@ class FilmList extends PureComponent {
   }
 
   onFilmSelect = film => {
-    console.log('film click!');
     this.setState({
       selectedFilm: film,
     });
@@ -63,7 +62,7 @@ class FilmList extends PureComponent {
     this.setState({
       selectedFilm: null,
     });
-  }
+  };
 
   onUpvote = (film, id) => {
     const thisFilm = filmsRef.child(id);
@@ -77,8 +76,6 @@ class FilmList extends PureComponent {
   };
 
   render() {
-
-
     const { films } = this.state;
     const keyedFilms = map(films, (film, key) => {
       return { ...film, key };
