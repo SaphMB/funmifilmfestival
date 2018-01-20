@@ -37,6 +37,8 @@ class MagicBar extends PureComponent {
             uid: this.props.user.uid,
             user_name: this.props.user.displayName,
             votes: 0,
+            watched: false,
+            dateWatched: null,
           });
     });
   };
