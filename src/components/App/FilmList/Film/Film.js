@@ -31,8 +31,8 @@ class Film extends PureComponent {
   render() {
     const { film } = this.props;
     return (
-      <FilmContainer>
-        <TitleContainer onClick={this.onFilmClick}>
+      <FilmContainer onClick={this.onFilmClick}>
+        <TitleContainer>
           <FilmName>{film.name}</FilmName>
           <UserName>submitted by: {film.user_name}</UserName>
         </TitleContainer>

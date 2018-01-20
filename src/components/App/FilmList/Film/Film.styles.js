@@ -3,10 +3,11 @@ import styled from 'styled-components';
 export const LikeButton = styled.button`
   align-self: flex-end;
   background: none;
-  border: white solid 1px;
+  border: solid 1px;
+  border-color: inherit;
   border-radius: 2px;
   margin: 2px;
-  color: white;
+  color: inherit;
 
   &:active {
     background: white;
@@ -19,11 +20,13 @@ export const FilmContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 5px;
   border-bottom: 1px solid grey;
-
-  &:first-child {
-    margin-top: 0px;
+  cursor: pointer;
+  padding: 5px 8px 0;
+  
+  &:hover {
+    background-color: #ffcf4a;
+    color: black;
   }
 `;
 

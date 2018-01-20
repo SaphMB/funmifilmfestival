@@ -13,7 +13,6 @@ export const FilmListContainer = styled.ul`
   flex-direction: column;
   border: 1px solid #ffffff;
   border-radius: 4px;
-  padding: 8px;
   color: white;
 `;
 
