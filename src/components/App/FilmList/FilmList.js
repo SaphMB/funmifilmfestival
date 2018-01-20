@@ -85,7 +85,7 @@ class FilmList extends PureComponent {
     return !this.state.loading ? (
       <List>
         <FilmListContainer>
-          {map(sortedFilms, film => (
+          {map(sortedFilms, film => !film.watched && (
             <Film
               film={film}
               id={film.key}
