@@ -25,7 +25,7 @@ class MagicBar extends PureComponent {
   };
 
   addFilm = e => {
-    const searchBarValue = document.getElementById('searchBar').value.trim();
+    let searchBarValue = document.getElementById('searchBar').value.trim();
 
     e.preventDefault();
 
@@ -41,6 +41,7 @@ class MagicBar extends PureComponent {
             dateWatched: null,
           });
     });
+    searchBarValue = ''
   };
 
   render() {

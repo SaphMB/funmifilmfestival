@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 
 const config = {
-  apiKey: 'AIzaSyBLX8USqwOXbvTtgxa5oEA1EAVWtZsv2Tk',
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
   authDomain: 'funmisfilmfestival.firebaseapp.com',
   databaseURL: 'https://funmisfilmfestival.firebaseio.com',
   projectId: 'funmisfilmfestival',
