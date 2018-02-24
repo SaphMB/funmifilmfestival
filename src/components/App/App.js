@@ -53,7 +53,7 @@ class App extends Component {
         />
         <Header />
         <MagicBar user={this.state.user} />
-        {this.state.user && <FilmList />}
+        {this.state.user && <FilmList user={this.state.user} />}
       </Container>
     );
   }

@@ -65,7 +65,7 @@ export class FilmInfoPanel extends PureComponent {
       <FilmInfoContainer>
         {film.name}
         {this.state.loading ? (
-          <LoadingSpinner/>
+          <LoadingSpinner />
         ) : (
           <div>
             <FilmPoster src={this.state.film.Poster} />

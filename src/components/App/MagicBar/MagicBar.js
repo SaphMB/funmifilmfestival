@@ -41,7 +41,7 @@ class MagicBar extends PureComponent {
             dateWatched: null,
           });
     });
-    searchBarValue = ''
+    searchBarValue = '';
   };
 
   render() {

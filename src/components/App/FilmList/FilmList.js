@@ -14,6 +14,7 @@ export const FilmListContainer = styled.ul`
   border: 1px solid #ffffff;
   border-radius: 4px;
   color: white;
+  min-width: 400px;
 `;
 
 const List = styled.div`
@@ -27,7 +28,8 @@ const LoadingSpinner = styled.img.attrs({
   padding-top: 20px;
 `;
 
-let filmsRef = fire.database().ref('films');
+const filmsRef = fire.database().ref('films');
+const votesRef = fire.database().ref('votes');
 
 class FilmList extends PureComponent {
   state = {
@@ -63,14 +65,32 @@ class FilmList extends PureComponent {
     });
   };
 
-  onUpvote = (film, id) => {
-    const thisFilm = filmsRef.child(id);
+  createNewVote = async id => {
+    await votesRef.push({
+      uid: this.props.user.uid,
+      fid: id,
+    });
+    console.log('voted!');
+  };
 
-    thisFilm.set({
-      name: film.name,
-      votes: film.votes + 1,
-      user_name: film.user_name,
-      uid: film.uid,
+  onUpvote = async (film, id) => {
+    await votesRef.once('value').then(async snapshot => {
+      if (snapshot.val()) {
+        const votes = Object.values(snapshot.val());
+
+        let voteExists = false;
+        votes.forEach(vote => {
+          if (vote.uid === this.props.user.uid && vote.fid === id) {
+            console.log('exists!');
+            voteExists = true;
+          }
+        });
+        if (!voteExists) {
+          this.createNewVote(id);
+        }
+      } else {
+        this.createNewVote(id);
+      }
     });
   };
 
@@ -79,20 +99,24 @@ class FilmList extends PureComponent {
     const keyedFilms = map(films, (film, key) => {
       return { ...film, key };
     });
-    const sortedFilms = orderBy(keyedFilms, ['votes'], ['desc']);
+    const sortedFilms = orderBy(keyedFilms, ['name'], ['asc']);
 
     return !this.state.loading ? (
       <List>
         <FilmListContainer>
-          {map(sortedFilms, film => !film.watched && (
-            <Film
-              film={film}
-              id={film.key}
-              key={film.key}
-              onUpvote={this.onUpvote}
-              onFilmSelect={this.onFilmSelect}
-            />
-          ))}
+          {map(
+            sortedFilms,
+            film =>
+              !film.watched && (
+                <Film
+                  film={film}
+                  id={film.key}
+                  key={film.key}
+                  onUpvote={this.onUpvote}
+                  onFilmSelect={this.onFilmSelect}
+                />
+              )
+          )}
         </FilmListContainer>
         {this.state.selectedFilm && (
           <FilmInfoPanel film={this.state.selectedFilm} />

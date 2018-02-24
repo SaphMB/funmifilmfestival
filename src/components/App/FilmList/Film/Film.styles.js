@@ -23,7 +23,7 @@ export const FilmContainer = styled.div`
   border-bottom: 1px solid grey;
   cursor: pointer;
   padding: 5px 8px 0;
-  
+
   &:hover {
     background-color: #ffcf4a;
     color: black;
