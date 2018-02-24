@@ -32,7 +32,6 @@ class Film extends PureComponent {
   }
 
   calculateVotes = async () => {
-    console.log('calculating votes');
     await votesRef.once('value').then(async snapshot => {
       if (snapshot.val()) {
         const votes = await Object.values(snapshot.val());
