@@ -29,6 +29,13 @@ const FilmPoster = styled.img`
 const FilmPlot = styled.div`
   font-size: 12px;
   font-weight: normal;
+  margin-bottom: 6px;
+`;
+
+const FilmDate = styled.div`
+  font-size: 12px;
+  font-weight: normal;
+  font-style: italic;
 `;
 
 const LoadingSpinner = styled.img.attrs({
@@ -70,6 +77,7 @@ export class FilmInfoPanel extends PureComponent {
           <div>
             <FilmPoster src={this.state.film.Poster} />
             <FilmPlot>{this.state.film.Plot}</FilmPlot>
+            <FilmDate>{this.state.film.Released}</FilmDate>
           </div>
         )}
       </FilmInfoContainer>

@@ -34,7 +34,7 @@ class MagicBar extends PureComponent {
 
   addFilm = e => {
     e.preventDefault();
-    
+
     let searchBarText = this.state.searchBarText;
     this.isDuplicate(searchBarText).then(result => {
       result
