@@ -14,6 +14,10 @@ const Container = styled.section`
 const filmsRef = fire.database().ref('films');
 
 class MagicBar extends PureComponent {
+  state = {
+    searchBarText: ''
+  };
+
   isDuplicate = filmName => {
     return filmsRef.once('value').then(snapshot => {
       const films = Object.values(snapshot.val());
@@ -24,16 +28,19 @@ class MagicBar extends PureComponent {
     });
   };
 
+  onSearchChange = event => {
+    this.setState({ searchBarText: event.target.value });
+  };
+
   addFilm = e => {
-    let searchBarValue = document.getElementById('searchBar').value.trim();
-
     e.preventDefault();
-
-    this.isDuplicate(searchBarValue).then(result => {
+    
+    let searchBarText = this.state.searchBarText;
+    this.isDuplicate(searchBarText).then(result => {
       result
         ? alert('Film already exists!')
         : filmsRef.push({
-            name: searchBarValue,
+            name: searchBarText,
             uid: this.props.user.uid,
             user_name: this.props.user.displayName,
             votes: 0,
@@ -41,13 +48,13 @@ class MagicBar extends PureComponent {
             dateWatched: null,
           });
     });
-    searchBarValue = '';
+    this.setState({ searchBarText: ''});
   };
 
   render() {
     return (
       <Container>
-        <SearchBar />
+        <SearchBar onSearchChange={this.onSearchChange} value={this.state.searchBarText}/>
         <AddButton addFilm={this.addFilm} />
       </Container>
     );
