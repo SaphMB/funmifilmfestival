@@ -33,7 +33,7 @@ export const FilmContainer = styled.div`
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: flex-start;
   margin-right: 20px;
 `;
 

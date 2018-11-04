@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import map from 'lodash/map';
-import orderBy from 'lodash/orderBy';
 
 import ripple from '../../../assets/Ripple.svg';
 import fire from '../../../firebase.js';
@@ -31,22 +29,54 @@ const LoadingSpinner = styled.img.attrs({
 const filmsRef = fire.database().ref('films');
 const votesRef = fire.database().ref('votes');
 
-class FilmList extends PureComponent {
+export default class FilmList extends PureComponent {
   state = {
     films: [],
     loading: true,
     selectedFilm: null,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     document.body.addEventListener('mousedown', this.onPageClick);
 
-    filmsRef.on('value', snapshot => {
-      this.setState({
-        films: snapshot.val(),
+    await this.refreshFilmList();
+  }
+
+  async refreshFilmList() {
+    const count = await this.calculateVoteCount(count);
+    await this.setFilmlistState(count);
+  }
+
+  async setFilmlistState(count) {
+    filmsRef.once('value', async snapshot => {
+      const filmSnapshot = snapshot.val();
+      const keyedFilms = Object.keys(filmSnapshot).map(filmKey => {
+        const film = filmSnapshot[filmKey];
+        return { ...film, id: filmKey, votes: count[filmKey] || 0 }
+      });
+
+      await this.setState({
+        films: keyedFilms.sort((a, b) => {
+          return b.votes - a.votes
+        }),
         loading: false,
       });
+    })
+  }
+
+  async calculateVoteCount() {
+    let count = {};
+
+    await votesRef.once('value').then(async snapshot => {
+      if (snapshot.val()) {
+        const votes = await Object.values(snapshot.val());
+        votes.map(v => v.fid).forEach((i) => {
+          count[i] = (count[i] || 0) + 1;
+        });
+      }
     });
+
+    return count
   }
 
   componentWillUnmount() {
@@ -70,7 +100,6 @@ class FilmList extends PureComponent {
       uid: this.props.user.uid,
       fid: id,
     });
-    console.log('voted!');
   };
 
   onUpvote = async (film, id) => {
@@ -92,26 +121,24 @@ class FilmList extends PureComponent {
         this.createNewVote(id);
       }
     });
+    await this.refreshFilmList()
   };
 
   render() {
     const { films } = this.state;
-    const keyedFilms = map(films, (film, key) => {
-      return { ...film, key };
-    });
-    const sortedFilms = orderBy(keyedFilms, ['name'], ['asc']);
 
-    return !this.state.loading ? (
+    return this.state.loading ? (
+      <LoadingSpinner/>
+    ) : (
       <List>
         <FilmListContainer>
-          {map(
-            sortedFilms,
+          {films.map(
             film =>
               !film.watched && (
                 <Film
                   film={film}
-                  id={film.key}
-                  key={film.key}
+                  id={film.id}
+                  key={film.id}
                   onUpvote={this.onUpvote}
                   onFilmSelect={this.onFilmSelect}
                 />
@@ -119,13 +146,9 @@ class FilmList extends PureComponent {
           )}
         </FilmListContainer>
         {this.state.selectedFilm && (
-          <FilmInfoPanel film={this.state.selectedFilm} />
+          <FilmInfoPanel film={this.state.selectedFilm}/>
         )}
       </List>
-    ) : (
-      <LoadingSpinner />
     );
   }
 }
-
-export default FilmList;
